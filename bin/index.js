@@ -15,7 +15,7 @@ switch(script) {
             [require.resolve(`../scripts/${script}.js`)],
             { stdio: 'inherit' }
         )
-        process.exit(result.status || 1)
+        process.exit(result.status)
         break
 
     default:
