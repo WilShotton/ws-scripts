@@ -10,9 +10,11 @@ const script = process.argv.length > 1
 switch(script) {
 
     case 'build':
+    case 'start':
+    case 'test':
         const result = spawn.sync(
             'node',
-            [require.resolve(`../scripts/${script}.js`)],
+            [require.resolve(`../scripts/${script}.js`), process.argv.slice(3)],
             { stdio: 'inherit' }
         )
         process.exit(result.status)

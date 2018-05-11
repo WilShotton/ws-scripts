@@ -4,8 +4,6 @@ const config = require('../config/webpack.build.config')
 
 webpack(config, (err, stats) => {
 
-    console.log('CB')
-
     console.log(err)
 
     if (stats) {
