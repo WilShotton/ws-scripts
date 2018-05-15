@@ -10,6 +10,7 @@ const script = process.argv.length > 1
 switch(script) {
 
     case 'build':
+    case 'lint':
     case 'start':
     case 'test':
         const result = spawn.sync(

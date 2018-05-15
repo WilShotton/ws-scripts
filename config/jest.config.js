@@ -2,14 +2,15 @@ const paths = require('./paths')
 
 
 const config = {
-    collectCoverageFrom: ['src/**/*.{js,jsx,mjs}'],
+    collectCoverageFrom: [
+        'src/**/*.{js,jsx,mjs}',
+        '!src/**/*.stories.{js,jsx,mjs}',
+    ],
     setupFiles: [require.resolve('./jest/polyfills.js')],
     testMatch: [
-        // '**/__tests__/**/*.{js,jsx,mjs}',
         '**/?(*.)(spec|test).{js,jsx,mjs}',
     ],
     roots: [paths.build.src],
-    // testEnvironment: 'node',
     testURL: 'http://localhost',
     transform: {
         '^.+\\.(js|jsx|mjs)$': require.resolve('./babel-transform'),
@@ -17,7 +18,6 @@ const config = {
     },
     transformIgnorePatterns: [
         '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$',
-        // '^.+\\.scss$'
     ],
     moduleFileExtensions: [
         'web.js',

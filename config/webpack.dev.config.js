@@ -15,7 +15,25 @@ module.exports = {
     mode: 'development',
     module: {
         rules: [
-            // @TODO: .eslint
+            {
+                test: /\.(js|jsx|mjs)$/,
+                enforce: 'pre',
+                use: [
+                    {
+                        options: {
+                            eslintPath: require.resolve('eslint'),
+                            baseConfig: {
+                                extends: [require.resolve('./eslint-config')],
+                            },
+                            ignore: false,
+                            useEslintrc: false,
+                        },
+                        loader: require.resolve('eslint-loader'),
+                    }
+                ],
+                include: paths.srcPaths,
+                exclude: [/[/\\\\]node_modules[/\\\\]/],
+            },
             {
                 oneOf: [
 

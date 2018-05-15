@@ -5,14 +5,29 @@ const paths = require('./paths')
 
 module.exports = {
     bail: true,
-    output: {
-        filename: 'index.js',
-        path: paths.build.output
-    },
     entry: paths.build.entry,
     mode: 'production',
     module: {
         rules: [
+            {
+                test: /\.(js|jsx|mjs)$/,
+                enforce: 'pre',
+                use: [
+                    {
+                        options: {
+                            eslintPath: require.resolve('eslint'),
+                            baseConfig: {
+                                extends: [require.resolve('./eslint-config')],
+                            },
+                            ignore: false,
+                            useEslintrc: false,
+                        },
+                        loader: require.resolve('eslint-loader'),
+                    }
+                ],
+                include: paths.srcPaths,
+                exclude: [/[/\\\\]node_modules[/\\\\]/],
+            },
             {
                 exclude: [/[/\\\\]node_modules[/\\\\]/],
                 test: /\.(js|jsx|mjs)$/,
@@ -30,7 +45,7 @@ module.exports = {
                             loader: require.resolve('css-loader'),
                             options: {
                                 camelCase: true,
-                                context: paths.build.cssContext, // __dirname,
+                                context: paths.build.cssContext,
                                 importLoaders: 1,
                                 localIdentName: '[name]__[local]__[hash:base64:5]',
                                 // minimize: true,
@@ -59,7 +74,11 @@ module.exports = {
                 loader: require.resolve('ignore-loader'),
                 test: /\.spec\.js$/
             }
-        ],
+        ]
+    },
+    output: {
+        filename: 'index.js',
+        path: paths.build.output
     },
     plugins: [
         new ExtractTextPlugin({
