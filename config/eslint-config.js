@@ -26,14 +26,15 @@ module.exports = {
     rules: {
         'arrow-parens': ['error', 'as-needed'],
         'babel/semi': ['error', 'never'],
+        'comma-dangle': ['error', 'only-multiline'],
         'import/newline-after-import': [
             'error', {
                 count: 2,
             }],
-        'import/no-unresolved': "off",
-        'import/order': "error",
-        'import/prefer-default-export': "error",
-        'import/no-unambiguous': "off",
+        'import/no-unambiguous': 'off',
+        'import/no-unresolved': 'off',
+        'import/order': 'error',
+        'import/prefer-default-export': 'error',
         indent: ['error', 4, {
             SwitchCase: 1,
         }],
@@ -56,6 +57,6 @@ module.exports = {
             caseSensitive: false,
             natural: false,
         }],
-        'space-before-function-paren':  'off'
+        'space-before-function-paren': 'off'
     }
 }

@@ -10,9 +10,10 @@ const resolveInSelf = relativePath => path.resolve(__dirname, relativePath)
 module.exports = {
 
     build: {
-        src: resolveInProject('src'),
         entry: resolveInProject('src/index.js'),
         html: resolveInSelf('../templates/index.html'),
-        output: resolveInProject('dist')
+        output: resolveInProject('dist'),
+        src: resolveInProject('src'),
+        tsConfig: resolveInSelf('ts.config.json'),
     }
 }

@@ -1,8 +1,11 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const webpack = require('webpack')
 const paths = require('./paths')
 
+
+const NODE_MODULES = /[/\\\\]node_modules[/\\\\]/
 
 module.exports = {
     bail: true,
@@ -17,39 +20,53 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx|mjs)$/,
+                // eslint-disable-next-line
                 enforce: 'pre',
+                exclude: [NODE_MODULES],
+                include: paths.srcPaths,
                 use: [
                     {
+                        loader: require.resolve('eslint-loader'),
                         options: {
-                            eslintPath: require.resolve('eslint'),
                             baseConfig: {
                                 extends: [require.resolve('./eslint-config')],
                             },
+                            eslintPath: require.resolve('eslint'),
                             ignore: false,
                             useEslintrc: false,
                         },
-                        loader: require.resolve('eslint-loader'),
                     }
                 ],
-                include: paths.srcPaths,
-                exclude: [/[/\\\\]node_modules[/\\\\]/],
             },
             {
                 oneOf: [
-
                     {
+                        test: /\.tsx?$/,
+                        // eslint-disable-next-line
+                        exclude: [NODE_MODULES],
+                        use: [{
+                            loader: require.resolve('ts-loader'),
+                            options: {
+                                // disable type checker - we will use it in fork plugin
+                                // transpileOnly: true,
+                                configFile: paths.build.tsConfig
+                            },
+                        }]
+                    }, {
                         test: /\.(js|jsx|mjs)$/,
-                        exclude: [/[/\\\\]node_modules[/\\\\]/],
+                        // eslint-disable-next-line
+                        exclude: [NODE_MODULES],
                         include: paths.build.src,
                         loader: require.resolve('babel-loader'),
                         options: {
                             babelrc: false,
-                            presets: require('./babel.config'),
                             cacheDirectory: true,
-                            highlightCode: true
+                            highlightCode: true,
+                            presets: require('./babel.config'),
                         }
                     }, {
                         test: /\.mod\.scss$/,
+                        // eslint-disable-next-line
                         loader: ExtractTextPlugin.extract({
                             fallback: require.resolve('style-loader'),
                             use: [
@@ -104,5 +121,13 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: paths.build.html
         })
-    ]
+    ],
+    resolve: {
+        extensions: [ '.ts', '.tsx', '.js', '.jsx' ],
+        plugins: [
+            new TsconfigPathsPlugin({
+                configFile: paths.build.tsConfig
+            })
+        ]
+    }
 }

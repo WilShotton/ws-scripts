@@ -1,4 +1,5 @@
 import React from 'react'
+import { Hello } from './content'
 
 import styles from './app.mod.scss'
 
@@ -6,7 +7,7 @@ import styles from './app.mod.scss'
 const App = () => {
     return (
         <div className={styles.rootNode}>
-            <p>Hello World!</p>
+            <Hello />
         </div>
     )
 }
