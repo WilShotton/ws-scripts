@@ -13,6 +13,7 @@ module.exports = {
         entry: resolveInProject('src/index.js'),
         html: resolveInSelf('../templates/index.html'),
         output: resolveInProject('dist'),
+        project: resolveInProject('project.json'),
         src: resolveInProject('src'),
         tsConfig: resolveInSelf('ts.config.json'),
     }

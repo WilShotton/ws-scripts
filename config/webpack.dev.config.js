@@ -1,11 +1,19 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const InterpolateHtmlPlugin = require('interpolate-html-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const webpack = require('webpack')
+const getEnv = require('../utils/get-env')
+const getSettings = require('../utils/get-settings')
 const paths = require('./paths')
 
 
 const NODE_MODULES = /[/\\\\]node_modules[/\\\\]/
+
+const env = getEnv()
+const settings = getSettings(env.raw)
+
+console.log('env', env.stringified)
 
 module.exports = {
     bail: true,
@@ -117,10 +125,12 @@ module.exports = {
         new ExtractTextPlugin({
             filename: 'style.[hash].css'
         }),
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: paths.build.html
-        })
+        }),
+        new InterpolateHtmlPlugin(settings),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin(env.stringified),
     ],
     resolve: {
         extensions: [ '.ts', '.tsx', '.js', '.jsx' ],

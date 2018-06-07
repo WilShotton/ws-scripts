@@ -21,7 +21,5 @@ Run tests and create a coverage report `ws-scripts test --coverage`
 ## todo…
 * .eslint / prettier
 * inject variables into the HTML
-* dev server
 * production builds
 	* babel-plugin-transform-react-remove-prop-types
-	* minify / uglify
