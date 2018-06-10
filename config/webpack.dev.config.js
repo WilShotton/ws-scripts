@@ -1,3 +1,5 @@
+'use strict'
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const InterpolateHtmlPlugin = require('interpolate-html-plugin')
@@ -12,8 +14,6 @@ const NODE_MODULES = /[/\\\\]node_modules[/\\\\]/
 
 const env = getEnv()
 const settings = getSettings(env.raw)
-
-console.log('env', env.stringified)
 
 module.exports = {
     bail: true,
@@ -116,18 +116,15 @@ module.exports = {
     },
     output: {
         filename: 'index.js',
-        path: paths.build.output
+        path: paths.build.output,
+        publicPath: '/'
     },
     performance: {
         hints: false
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: 'style.[hash].css'
-        }),
-        new HtmlWebpackPlugin({
-            template: paths.build.html
-        }),
+        new ExtractTextPlugin({ filename: 'style.[hash].css' }),
+        new HtmlWebpackPlugin({ template: paths.build.html }),
         new InterpolateHtmlPlugin(settings),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin(env.stringified),

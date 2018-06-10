@@ -1,12 +1,15 @@
+'use strict'
+
+const paths = require('./paths')
+
 
 module.exports = ({ host }) => {
 
     return {
-        // clientLogLevel: 'none',
+        contentBase: paths.build.public,
         disableHostCheck: true,
         host,
         hot: true,
-        // quiet: true,
         stats: {
             children: false
         }

@@ -4,9 +4,15 @@
 process.env.BABEL_ENV = 'production'
 process.env.NODE_ENV = 'production'
 
+const fs = require('fs-extra')
 const webpack = require('webpack')
 const config = require('../config/webpack.build.config')
+const paths = require('../config/paths')
 
+
+fs.copySync(paths.build.public, paths.build.output, {
+    dereference: true
+})
 
 webpack(config, (err, stats) => {
 

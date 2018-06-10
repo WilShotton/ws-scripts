@@ -1,3 +1,5 @@
+'use strict'
+
 const path = require('path')
 
 
@@ -13,7 +15,9 @@ module.exports = {
         entry: resolveInProject('src/index.js'),
         html: resolveInSelf('../templates/index.html'),
         output: resolveInProject('dist'),
+        package: resolveInProject('package.json'),
         project: resolveInProject('project.json'),
+        public: resolveInProject('public'),
         src: resolveInProject('src'),
         tsConfig: resolveInSelf('ts.config.json'),
     }

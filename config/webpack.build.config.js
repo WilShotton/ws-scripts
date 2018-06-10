@@ -1,3 +1,5 @@
+'use strict'
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const InterpolateHtmlPlugin = require('interpolate-html-plugin')
@@ -13,8 +15,6 @@ const NODE_MODULES = /[/\\\\]node_modules[/\\\\]/
 
 const env = getEnv()
 const settings = getSettings(env.raw)
-
-console.log('settings', settings)
 
 module.exports = {
     bail: true,

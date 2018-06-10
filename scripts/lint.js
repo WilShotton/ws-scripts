@@ -1,13 +1,15 @@
+'use strict'
+
 const { CLIEngine } = require('eslint')
 const config = require('../config/eslint-config')
 const paths = require('../config/paths')
 
 
 const engine = new CLIEngine({
-    cwd: process.cwd(),
     baseConfig: config,
-    useEslintrc: false,
+    cwd: process.cwd(),
     fix: false,
+    useEslintrc: false
 })
 
 const report = engine.executeOnFiles([paths.build.src])
