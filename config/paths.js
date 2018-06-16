@@ -20,5 +20,6 @@ module.exports = {
         public: resolveInProject('public'),
         src: resolveInProject('src'),
         tsConfig: resolveInSelf('ts.config.json'),
+        tsConfigTest: resolveInSelf('ts.config.test.json'),
     }
 }
